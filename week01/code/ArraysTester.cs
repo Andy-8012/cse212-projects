@@ -39,7 +39,22 @@ public static class ArraysTester {
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return new double[0]; // replace this return statement with your own
+        //step 1 Create an empty array to hold the multples of your number using the length variable from the function
+        double[] multiples = new double[length];
+
+        //step 2 Create a for loop and use the length for the number of iterations plus 1
+        for (var i = 0; i < length; ++i) {
+
+            //step 3 In the for loop use the number from the function and multiply it by
+            //the iteration that you are on. Remember to add one since your iteration will start at 0
+            double multiple = number * (i+1);
+
+            //step 4 Save the result from step 3 in the array you created in step 1
+            multiples[i] = multiple;
+        } 
+
+        //step 5 return the list of Multiples of
+        return multiples; // replace this return statement with your own
     }
     
     /// <summary>
