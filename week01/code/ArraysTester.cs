@@ -1,3 +1,5 @@
+using System.Globalization;
+
 public static class ArraysTester {
     /// <summary>
     /// Entry point for the tests
@@ -47,7 +49,7 @@ public static class ArraysTester {
 
             //step 3 In the for loop use the number from the function and multiply it by
             //the iteration that you are on. Remember to add one since your iteration will start at 0
-            double multiple = number * (i+1);
+            double multiple = number * (i + 1);
 
             //step 4 Save the result from step 3 in the array you created in step 1
             multiples[i] = multiple;
@@ -72,5 +74,18 @@ public static class ArraysTester {
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
+        //step 1: Create a new list
+        var endList = new List<int>();
+
+        //step 2: Set the new list equal to the data minus the amount you want to shift it right
+        // use the .GetRange function to do so.
+        endList = data.GetRange(0, data.Count - amount);
+
+        //step 3: Remove the range from the data up to the amount you want to shif right using .RemoveRange
+        //This will clear the data of the first numbers that we will add later on
+        data.RemoveRange(0, data.Count - amount);
+
+        //step 4: Use the .AddRange function to data to add the range of the list you created in step 2
+        data.AddRange(endList);
     }
 }
