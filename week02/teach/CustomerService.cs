@@ -20,26 +20,91 @@ public class CustomerService {
         // Console.WriteLine(cs);
 
         // Test Cases
-
+        var customerService = new CustomerService(0);
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: If the max size of the queue is less than or equal to 0 
+        //           Default the max size to 10
+        // Expected Result: 10
         Console.WriteLine("Test 1");
-
-        // Defect(s) Found: 
+        Console.WriteLine(customerService._maxSize);
+        // Defect(s) Found: No defects found
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Using the AddNewCutsomer function should place a new
+        //           customer into the queue
+        // Expected Result: [size=3 max_size=3 => (Name, Account ID : Problem)]
+        //                  This should be equal to what you inputed in the console
         Console.WriteLine("Test 2");
+        customerService = new CustomerService(3);
 
-        // Defect(s) Found: 
+        for (int i = 0; i < customerService._maxSize; i++){
+            // in the console 
+            customerService.AddNewCustomer();
+        }
+
+        Console.WriteLine(customerService.ToString());
+        // Defect(s) Found: No defects found Add them to the queue properly
 
         Console.WriteLine("=================");
 
         // Add more Test Cases As Needed Below
+
+        // Test 3
+        // Scenario: Add one more customer over the max size to get an error message
+        // Expected Result: An error message is displayed.
+
+        Console.WriteLine("Test 3");
+        customerService = new CustomerService(3);
+
+        //This for loop will run AddNewCustomer function One more time over
+        //the max size limit
+        for (int i = 0; i <= customerService._maxSize; i++){
+            // in the console answer the prompts
+            customerService.AddNewCustomer();
+        }
+
+        // Defect(s) Found: Doesn't print an error message adds them to the queue
+        // over the max size
+
+        Console.WriteLine("=================");
+
+        // Test 4
+        // Scenario: Dequeue the next customer from the que and display the details
+        // Expected Result: (Name 1 (ID): Problem), (Name 2 (ID): Problem), (Name 3 (ID): Problem)
+
+        Console.WriteLine("Test 4");
+        // We will be using the queue created in test 3
+
+        //Create a for loop that uses the size of the que to serve each customer
+        int customerQueueSize = customerService._queue.Count;
+        for (int i = 0; i < customerQueueSize; i++){
+            customerService.ServeCustomer();
+        }
+
+        // Defect(s) Found: Doesn't print out the first name in the list because it
+        // removes it from the queue then prints out the next name.
+
+        Console.WriteLine("=================");
+
+        // Test 5
+        // Scenario: Displays an error message when trying to serve a customer
+        //           When the queue is empty
+        // Expected Result: Error message is displayed saying no customer in queue.
+
+        Console.WriteLine("Test 5");
+        customerService = new CustomerService(1);
+
+        //Create a for loop that uses the size of the que to serve each customer
+        //Add one to test what happens when serving an empty queue
+        customerQueueSize = customerService._queue.Count + 1;
+        for (int i = 0; i < customerQueueSize; i++){ 
+            customerService.ServeCustomer();
+        }
+
+        // Defect(s) Found: Donesn't print an error message states there is
+        //                  an unhandled exception.
     }
 
     private readonly List<Customer> _queue = new();
@@ -78,7 +143,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -99,9 +164,15 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
+        // Verify there is room in the service queue
+        if (_queue.Count <= 0) {
+            Console.WriteLine("There are no Customers in the queue");
+            return;
+        }
+
         var customer = _queue[0];
         Console.WriteLine(customer);
+        _queue.RemoveAt(0);
     }
 
     /// <summary>
