@@ -22,10 +22,11 @@ public static class TakingTurns {
         players.AddPerson("Bob", 2);
         players.AddPerson("Tim", 5);
         players.AddPerson("Sue", 3);
-        // Console.WriteLine(players);    // This can be un-commented out for debug help
+        //Console.WriteLine(players);    // This can be un-commented out for debug help
         while (players.Length > 0)
             players.GetNextPerson();
-        // Defect(s) Found: 
+        // Defect(s) Found: Instead of moving through the queue Sue goes through 3 times then Tim 5 times then Bob 2 times
+        // Fix: In the PersonQueue Class line 14 change it to _queue.Add(person);
 
         Console.WriteLine("---------");
 
@@ -48,7 +49,8 @@ public static class TakingTurns {
         while (players.Length > 0)
             players.GetNextPerson();
 
-        // Defect(s) Found: 
+        // Defect(s) Found: Same Defect as Test one
+        // Fix: Same fix as in Test one
 
         Console.WriteLine("---------");
 
@@ -66,7 +68,10 @@ public static class TakingTurns {
             players.GetNextPerson();
             // Console.WriteLine(players);
         }
-        // Defect(s) Found: 
+        // Defect(s) Found: Tim isn't being repeated forever. He is only getting in the queue one time.
+        //                  Also "No one in the queue." is printed 4 times afterwards. This is because of the for loop in line 67
+        // Fix: In PersonQueue class add an if satement in the Dequeue function under var person = _person[0];
+        //      Your if statment will check to see if the person turns is set to 0 if so re add them back to the queue.
 
         Console.WriteLine("---------");
 
@@ -76,6 +81,6 @@ public static class TakingTurns {
         Console.WriteLine("Test 4");
         players = new TakingTurnsQueue();
         players.GetNextPerson();
-        // Defect(s) Found:
+        // Defect(s) Found: None error message is displayed "No one is in the queue."
     }
 }
