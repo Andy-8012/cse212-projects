@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 public static class SetsAndMapsTester {
@@ -29,7 +32,7 @@ public static class SetsAndMapsTester {
         // Problem 2: Degree Summary
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== Census TESTS ===========");
-        Console.WriteLine(string.Join(", ", SummarizeDegrees("census.txt")));
+        Console.WriteLine(string.Join(", ", SummarizeDegrees(@"C:\Users\Andrew Riley\OneDrive\Documents\cse212\cse212-projects\week03\code\census.txt")));
         // Results may be in a different order:
         // <Dictionary>{[Bachelors, 5355], [HS-grad, 10501], [11th, 1175],
         // [Masters, 1723], [9th, 514], [Some-college, 7291], [Assoc-acdm, 1067],
@@ -111,6 +114,20 @@ public static class SetsAndMapsTester {
         // To display the pair correctly use something like:
         // Console.WriteLine($"{word} & {pair}");
         // Each pair of words should displayed on its own line.
+
+        var wordsSet = new HashSet<string>();
+        foreach(var x in words){
+            x.Split();
+            char first = x[1];
+            char second = x[0];
+            string reverse = $"{first}{second}";
+            if (wordsSet.Contains(x) | wordsSet.Contains(reverse)){
+                Console.WriteLine($"{x} & {reverse} ");
+            }
+            else{
+            wordsSet.Add(x);
+            }
+        }
     }
 
     /// <summary>
@@ -132,6 +149,12 @@ public static class SetsAndMapsTester {
         foreach (var line in File.ReadLines(filename)) {
             var fields = line.Split(",");
             // Todo Problem 2 - ADD YOUR CODE HERE
+            if (degrees.ContainsKey(fields[3])){
+                degrees[fields[3]]++;
+            }
+            else {
+                degrees.Add(fields[3], 1);
+            }
         }
 
         return degrees;
@@ -158,7 +181,37 @@ public static class SetsAndMapsTester {
     /// #############
     private static bool IsAnagram(string word1, string word2) {
         // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+        var anagrams = new Dictionary<char,int>();
+        foreach(char letter in word1.ToLower()){
+            if (letter != ' '){
+                if(anagrams.ContainsKey(letter)){
+                    anagrams[letter]++;
+                }
+                else{
+                    anagrams.Add(letter,1);
+                }
+            }
+        }
+
+        foreach(char letter in word2.ToLower()){
+            if (letter != ' '){
+                if(anagrams.ContainsKey(letter)){
+                    anagrams[letter]--;
+                }
+            }
+        }
+
+        bool isAnagram = true;
+
+        foreach(char letter in word1.ToLower()){
+            if (letter != ' '){
+                if(anagrams[letter] != 0){
+                    isAnagram = false;
+                }
+            }
+        }
+
+        return isAnagram;
     }
 
     /// <summary>
