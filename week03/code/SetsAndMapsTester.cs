@@ -287,5 +287,8 @@ public static class SetsAndMapsTester {
         var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
         // 1. Add your code to map the json to the feature collection object
         // 2. Print out each place a earthquake has happened today
+            foreach (var feature in featureCollection.Features){
+                Console.WriteLine($"{feature.Properties.Place} - {feature.Properties.Mag}");
+            }
     }
 }
