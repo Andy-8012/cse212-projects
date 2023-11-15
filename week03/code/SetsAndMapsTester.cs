@@ -217,6 +217,7 @@ public static class SetsAndMapsTester {
     /// <summary>
     /// Sets up the maze dictionary for problem 4
     /// </summary>
+    /// {left, right, up, down}
     private static Dictionary<ValueTuple<int, int>, bool[]> SetupMazeMap() {
         Dictionary<ValueTuple<int, int>, bool[]> map = new() {
             { (1, 1), new[] { false, true, false, true } },
@@ -256,6 +257,7 @@ public static class SetsAndMapsTester {
             { (6, 5), new[] { false, false, false, false } },
             { (6, 6), new[] { true, false, false, false } }
         };
+        
         return map;
     }
 
